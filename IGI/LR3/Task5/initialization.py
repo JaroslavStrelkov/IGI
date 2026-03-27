@@ -4,7 +4,7 @@ def get_float():
     
     while True:
         try:
-            num = float(input("Enter number (0 to stop): "))
+            num = float(input("Enter number: "))
             return num
         except ValueError:
             print("Falsch input! Enter float number")
@@ -15,8 +15,6 @@ def input_numbers(size):
     numbers = []
     for i in range(size):
         num = get_float()
-        if num == 0:
-            break
         numbers.append(num)
     return numbers
 
