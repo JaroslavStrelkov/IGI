@@ -21,14 +21,14 @@ def main():
             printList(numbers)
             break
         elif choose == "2":
-            numbers = automatic_generation_numbers(size)
+            numbers = list(automatic_generation_numbers(size))
             printList(numbers)
             break
         else:
             print("Falsch input!")
-    product = mult_positive_num(numbers)
+    product = round(mult_positive_num(numbers),4)
     print("The product of the positive elements of the list:", product)
-    amount = amount_after_the_minimum(numbers) 
+    amount = round(amount_after_the_minimum(numbers),4) 
     print("The sum of the elements arranged up to the elements arranged up to the minimum modulo element:", amount)
 
 if __name__ == "__main__":

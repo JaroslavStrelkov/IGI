@@ -20,11 +20,9 @@ def input_numbers():
     return numbers
 
 def automatic_generation_numbers(size):
-    #fill the list with numbers
-    numbers = []
+    #fill the generator with numbers
     for _ in range(size):
-        numbers.append(random.randint(-500,500))
-    return numbers
+        yield random.randint(-500,500)
 
 def get_size():
     #Get list size from user

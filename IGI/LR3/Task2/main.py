@@ -20,7 +20,7 @@ def main():
         elif choose == "2":
             print("Enter the size of the list you want to process")
             size = get_size()
-            numbers = automatic_generation_numbers(size)
+            numbers = list(automatic_generation_numbers(size))
             print(f"List: {numbers}")
             break
         else:
