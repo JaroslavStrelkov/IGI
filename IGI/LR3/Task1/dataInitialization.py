@@ -1,6 +1,6 @@
 
 def floatValue(word):
-    #Get float value from user with validation
+    '''Get float value from user with validation'''
     while True:
         try:
             value = float(input(word))

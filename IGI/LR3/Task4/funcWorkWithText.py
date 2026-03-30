@@ -1,5 +1,5 @@
 def count_upper_lower(str):
-    #counting uppercase and lowercase letters
+    '''counting uppercase and lowercase letters'''
     upNum = 0
     lowNum = 0
 
@@ -11,9 +11,8 @@ def count_upper_lower(str):
     return upNum, lowNum
 
 def find_word_witch_z(str):
-    #find first word with "z"
+    '''find first word with "z"'''
     separators = " ,."
-
     wordNum = 0
     word = ""
 
@@ -29,7 +28,7 @@ def find_word_witch_z(str):
     return None, None
 
 def remove_word_witch_first_a(str):
-    #delete word in text, wenn sie starting with "a"
+    '''delete word in text, wenn sie starting with "a"'''
     separators = " ,."
     newStr = ""
     word = ""

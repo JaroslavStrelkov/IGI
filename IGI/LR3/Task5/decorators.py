@@ -1,5 +1,5 @@
 def program_repeat(func):
-    #repeat the program or no
+    '''repeat the program or no'''
     def wrapper():
         while True:
             func()

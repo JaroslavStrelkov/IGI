@@ -1,5 +1,5 @@
 def exit_from_the_loop():
-    #Ask user to repeat program
+    '''Ask user to repeat program'''
     while True:
         n = input("Do you want to continue? (y/n): ")
         if(n.lower() == "y"):

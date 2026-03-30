@@ -1,5 +1,5 @@
 def check_binary(str):
-    #check binary string or no
+    '''check binary string or no'''
     if not str:
         print("String is empty")
         return False

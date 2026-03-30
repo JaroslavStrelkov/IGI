@@ -1,6 +1,6 @@
 import random
 def get_integer():
-    #get integer num from user
+    '''get integer num from user'''
     while True:
         try:
             num = int(input("Enter number (0 to stop): "))
@@ -10,7 +10,7 @@ def get_integer():
 
 
 def input_numbers():
-    #filling in the list
+    '''filling in the list'''
     numbers = []
     while True:
             num = get_integer()
@@ -20,12 +20,12 @@ def input_numbers():
     return numbers
 
 def automatic_generation_numbers(size):
-    #fill the generator with numbers
+    '''fill the generator with numbers'''
     for _ in range(size):
         yield random.randint(-500,500)
 
 def get_size():
-    #Get list size from user
+    '''Get list size from user'''
     while True:
         try:
             size = int(input())

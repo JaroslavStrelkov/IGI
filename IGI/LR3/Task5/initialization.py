@@ -1,6 +1,6 @@
 import random
 def get_float():
-    #get float num from user
+    '''get float num from user'''
     
     while True:
         try:
@@ -11,7 +11,7 @@ def get_float():
 
 
 def input_numbers(size):
-    #filling in the list
+    '''filling in the list'''
     numbers = []
     for i in range(size):
         num = get_float()
@@ -19,13 +19,13 @@ def input_numbers(size):
     return numbers
 
 def automatic_generation_numbers(size):
-    #fill the generator with numbers
+    '''fill the generator with numbers'''
     numbers = []
     for _ in range(size):
         yield round(random.uniform(-200.0, 200.0), 2)
 
 def get_size():
-    #Get list size from user
+    '''Get list size from user'''
     while True:
         try:
             size = int(input())

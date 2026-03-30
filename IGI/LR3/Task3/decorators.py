@@ -1,5 +1,5 @@
 def program_repeat(func):
-    #decorator für repeat
+    '''decorator für repeat'''
     def wrapper():
         while True:
             func()

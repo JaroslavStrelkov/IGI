@@ -1,6 +1,6 @@
 from math import factorial, pow
 def func_calculation(x, eps):
-    #Calculates the value of a function using a power series expansion
+    '''Calculates the value of a function using a power series expansion'''
     max = 500
     part = x
     result = 0
