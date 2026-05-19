@@ -1,0 +1,40 @@
+{% extends 'window/base.html' %}
+
+{% block content %}
+
+<h1>
+    Контакты
+</h1>
+
+{% for contact in contacts %}
+
+    <h2>
+        {{ contact.full_name }}
+    </h2>
+
+    <p>
+        {{ contact.position }}
+    </p>
+
+    <p>
+        {{ contact.phone }}
+    </p>
+
+    <p>
+        {{ contact.email }}
+    </p>
+
+    {% if contact.photo %}
+
+        <img
+            src="{{ contact.photo.url }}"
+            width="200"
+        >
+
+    {% endif %}
+
+    <hr>
+
+{% endfor %}
+
+{% endblock %}

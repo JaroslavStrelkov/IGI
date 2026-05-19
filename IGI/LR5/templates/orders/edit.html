@@ -1,0 +1,140 @@
+{% extends 'window/base.html' %}
+
+{% block content %}
+
+<h1>
+    Редактирование заказа
+</h1>
+
+<form method="POST">
+
+    {% csrf_token %}
+
+    {% for car in cars %}
+
+        <div
+            style="
+                border:1px solid black;
+                padding:10px;
+                margin-bottom:10px;
+            "
+        >
+
+            <h3>
+
+                {{ car.name }}
+
+            </h3>
+
+            <p>
+
+                Цена:
+
+                {{ car.price }}
+
+            </p>
+
+            <p>
+
+                <input
+                    type="checkbox"
+                    name="cars"
+                    value="{{ car.id }}"
+
+                    {% for item in order.items.all %}
+
+                        {% if item.car.id == car.id %}
+
+                            checked
+
+                        {% endif %}
+
+                    {% endfor %}
+                >
+
+                Выбрать
+
+            </p>
+
+            <p>
+
+                Количество:
+
+                <input
+                type="number"
+                name="quantity_{{ car.id }}"
+                min="1"
+
+                value="{% for item in order.items.all %}{% if item.car.id == car.id %}{{ item.quantity }}{% endif %}{% endfor %}"
+            >
+            </p>
+
+        </div>
+
+    {% endfor %}
+
+    <p>
+
+        Дата доставки:
+
+        <input
+            type="date"
+            name="delivery_date"
+            value="{{ order.delivery_date|date:'Y-m-d' }}"
+        >
+
+    </p>
+
+    {% if is_employee or is_admin %}
+
+        <p>
+
+            Статус:
+
+            <select name="status">
+
+                <option value="new">
+
+                    Новый
+
+                </option>
+
+                <option value="confirmed">
+
+                    Подтвержден
+
+                </option>
+
+                <option value="in_delivery">
+
+                    Доставляется
+
+                </option>
+
+                <option value="completed">
+
+                    Завершен
+
+                </option>
+
+                <option value="cancelled">
+
+                    Отменен
+
+                </option>
+
+            </select>
+
+        </p>
+
+    {% endif %}
+
+    <button type="submit">
+
+        Сохранить
+
+    </button>
+
+</form>
+
+{% endblock %}

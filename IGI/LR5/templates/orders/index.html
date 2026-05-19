@@ -1,0 +1,201 @@
+{% extends 'window/base.html' %}
+
+{% block content %}
+
+<h1>
+    Заказы
+</h1>
+
+{% if user.is_authenticated %}
+
+    {% if user.profile.role == 'customer' %}
+
+        <a href="/orders/create/">
+
+            Оформить заказ
+
+        </a>
+
+    {% endif %}
+
+{% endif %}
+
+<hr>
+
+<h2>
+    Список заказов
+</h2>
+
+{% for order in orders %}
+
+    <div
+        style="
+            border:1px solid black;
+            padding:10px;
+            margin-bottom:20px;
+        "
+    >
+
+        <h3>
+
+            Заказ №{{ order.id }}
+
+        </h3>
+
+        <p>
+
+            Клиент:
+
+            {{ order.customer.username }}
+
+        </p>
+
+        <p>
+
+            Сотрудник:
+
+            {% if order.employee %}
+
+                {{ order.employee.username }}
+
+            {% else %}
+
+                Не назначен
+
+            {% endif %}
+
+        </p>
+
+        <p>
+
+            Статус:
+
+            {{ order.get_status_display }}
+
+        </p>
+
+        {% if user.is_authenticated %}
+
+            {% if order.customer == user %}
+
+                {% if order.status == 'new' %}
+
+                    <a href="/orders/edit/{{ order.id }}/">
+
+                        Изменить заказ
+
+                    </a>
+
+                {% endif %}
+
+            {% endif %}
+
+            {% if user.profile.role == 'employee' or user.is_superuser %}
+
+                <a href="/orders/edit/{{ order.id }}/">
+
+                    Управление заказом
+
+                </a>
+
+            {% endif %}
+
+        {% endif %}
+
+        <p>
+
+            Дата продажи:
+
+            {% if order.sale_date %}
+
+                {{ order.sale_date }}
+
+            {% else %}
+
+                Еще не оформлен
+
+            {% endif %}
+
+        </p>
+
+        <p>
+
+            Дата доставки:
+
+            {{ order.delivery_date }}
+
+        </p>
+
+        <p>
+
+            Общая сумма:
+
+            {{ order.total_price }}
+
+        </p>
+
+        {% if order.promo_code %}
+
+            <p>
+
+                Промокод:
+
+                {{ order.promo_code.code }}
+
+            </p>
+
+        {% endif %}
+
+        <h4>
+            Автомобили
+        </h4>
+
+        <ul>
+
+            {% for item in order.items.all %}
+
+                <li>
+
+                    {{ item.car.name }}
+
+                    —
+
+                    {{ item.price }}
+
+                </li>
+
+            {% endfor %}
+
+        </ul>
+
+        {% if user.is_authenticated %}
+
+            {% if user.profile.role == 'employee' or user.is_superuser %}
+
+                {% if not order.employee %}
+
+                    <a href="/orders/take/{{ order.id }}/">
+
+                        Взять заказ
+
+                    </a>
+
+                {% endif %}
+
+            {% endif %}
+
+        {% endif %}
+
+    </div>
+
+{% empty %}
+
+    <p>
+
+        Заказов пока нет
+
+    </p>
+
+{% endfor %}
+
+{% endblock %}

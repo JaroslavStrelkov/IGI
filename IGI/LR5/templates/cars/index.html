@@ -1,0 +1,239 @@
+{% extends 'window/base.html' %}
+{% block content %}
+
+<h1>
+    Автомобили
+</h1>
+
+<form method="GET">
+
+    <p>
+
+        Поиск:
+
+        <input
+            type="text"
+            name="search"
+            value="{{ request.GET.search }}"
+        >
+
+    </p>
+
+    <p>
+
+        Категория:
+
+        <select name="category">
+
+            <option value="">
+                Все
+            </option>
+
+            {% for category in categories %}
+
+                <option
+                    value="{{ category.id }}"
+                >
+
+                    {{ category.name }}
+
+                </option>
+
+            {% endfor %}
+
+        </select>
+
+    </p>
+
+    <p>
+
+        Производитель:
+
+        <select name="manufacturer">
+
+            <option value="">
+                Все
+            </option>
+
+            {% for manufacturer in manufacturers %}
+
+                <option
+                    value="{{ manufacturer.id }}"
+                >
+
+                    {{ manufacturer.name }}
+
+                </option>
+
+            {% endfor %}
+
+        </select>
+
+    </p>
+
+    <p>
+
+        Цена от:
+
+        <input
+            type="number"
+            name="min_price"
+        >
+
+    </p>
+
+    <p>
+
+        Цена до:
+
+        <input
+            type="number"
+            name="max_price"
+        >
+
+    </p>
+
+    <p>
+
+        Сортировка:
+
+        <select name="sort">
+
+            <option value="">
+                Без сортировки
+            </option>
+
+            <option value="price_asc">
+                Цена ↑
+            </option>
+
+            <option value="price_desc">
+                Цена ↓
+            </option>
+
+            <option value="year_asc">
+                Год ↑
+            </option>
+
+            <option value="year_desc">
+                Год ↓
+            </option>
+
+        </select>
+
+    </p>
+
+    <button type="submit">
+
+        Применить
+
+    </button>
+
+</form>
+
+<hr>
+{% if user.is_authenticated %}
+    {% if user.profile.role == 'employee' or user.is_superuser %}
+
+        <a href="/cars/create/">
+            Добавить автомобиль
+        </a>
+
+        <hr>
+
+    {% endif %}
+{% endif %}
+
+{% for car in cars %}
+
+    <h2>
+        {{ car.name }}
+    </h2>
+
+    <p>
+        Производитель:
+        {{ car.manufacturer }}
+    </p>
+
+    <p>
+        Категория:
+        {{ car.category }}
+    </p>
+
+    <p>
+        Цена:
+        {{ car.price }}
+    </p>
+
+    <p>
+        Год:
+        {{ car.year }}
+    </p>
+
+    <p>
+        Пробег:
+        {{ car.mileage }}
+    </p>
+
+    <p>
+        Топливо:
+        {{ car.get_fuel_type_display }}
+    </p>
+
+    <p>
+        Коробка:
+        {{ car.get_transmission_display }}
+    </p>
+
+    <p>
+        Описание:
+        {{ car.description }}
+    </p>
+
+    <p>
+        Особенности:
+    </p>
+
+    <ul>
+
+        {% for feature in car.features.all %}
+
+            <li>
+                {{ feature.name }}
+            </li>
+
+        {% endfor %}
+
+    </ul>
+
+    {% if car.image %}
+
+        <img
+            src="{{ car.image.url }}"
+            width="300"
+        >
+
+    {% endif %}
+
+    <br><br>
+    {% if user.is_authenticated %}
+        {% if user.profile.role == 'employee' or user.is_superuser %}
+
+            <a href="/cars/edit/{{ car.id }}">
+                Изменить
+            </a>
+
+            |
+
+            <a href="/cars/delete/{{ car.id }}">
+                Удалить
+            </a>
+
+        {% endif %}
+    {% endif %}
+
+    <hr>
+
+{% endfor %}
+
+{% endblock %}

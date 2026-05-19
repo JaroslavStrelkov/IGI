@@ -1,0 +1,78 @@
+{% extends 'window/base.html' %}
+
+{% block content %}
+
+<h1>
+    Автосалон
+</h1>
+
+<p>
+    Добро пожаловать на сайт автосалона.
+</p>
+
+{% if user.is_authenticated %}
+
+    <p>
+        Вы вошли как:
+        {{ user.username }}
+    </p>
+
+    <p>
+        Роль:
+        {{ user.profile.role }}
+    </p>
+
+
+{% endif %}
+
+<hr>
+
+<h2>
+
+    Последняя новость
+
+</h2>
+
+{% if latest_news %}
+
+    <h3>
+
+        {{ latest_news.title }}
+
+    </h3>
+
+    <p>
+
+        {{ latest_news.content|truncatewords:30 }}
+
+    </p>
+
+    <p>
+
+        {{ latest_news.created_at }}
+
+    </p>
+
+    {% if latest_news.image %}
+
+        <img
+
+            src="{{ latest_news.image.url }}"
+
+            width="400"
+
+        >
+
+    {% endif %}
+
+{% else %}
+
+    <p>
+
+        Новостей пока нет
+
+    </p>
+
+{% endif %}
+
+{% endblock %}

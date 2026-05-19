@@ -1,0 +1,96 @@
+{% extends 'window/base.html' %}
+
+{% block content %}
+
+<h1>
+    Промокоды
+</h1>
+
+{% if user.is_authenticated %}
+
+    {% if user.profile.role == 'employee' or user.is_superuser %}
+
+        <a href="/promo/create/">
+            Добавить промокод
+        </a>
+
+    {% endif %}
+
+{% endif %}
+
+<hr>
+
+<h2>
+    Активные
+</h2>
+
+{% for promo in active_promos %}
+
+    <p>
+
+        Код:
+        {{ promo.code }}
+
+    </p>
+
+    <p>
+
+        Скидка:
+        {{ promo.discount_percent }}%
+
+    </p>
+
+    <p>
+
+        Действует до:
+        {{ promo.valid_until }}
+
+    </p>
+
+    {% if user.is_authenticated %}
+
+        {% if user.profile.role == 'employee' or user.is_superuser %}
+
+            <a href="/promo/edit/{{ promo.id }}">
+                Изменить
+            </a>
+
+            |
+
+            <a href="/promo/delete/{{ promo.id }}">
+                Удалить
+            </a>
+
+        {% endif %}
+
+    {% endif %}
+
+    <hr>
+
+{% endfor %}
+
+<h2>
+    Архив
+</h2>
+
+{% for promo in archive_promos %}
+
+    <p>
+
+        {{ promo.code }}
+
+        —
+
+        {{ promo.discount_percent }}%
+
+    </p>
+
+{% empty %}
+
+    <p>
+        Архив пуст
+    </p>
+
+{% endfor %}
+
+{% endblock %}

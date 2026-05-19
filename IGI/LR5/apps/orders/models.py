@@ -1,0 +1,34 @@
+from django.db import models
+from django.contrib.auth.models import User
+from apps.cars.models import Car
+from apps.promo.models import PromoCode
+
+class Order(models.Model):
+    STATUS_CHOICES = [('new', 'Новый'), ('confirmed', 'Подтвержден'), ('in_delivery', 'Доставляется'), ('completed', 'Завершен'), ('cancelled', 'Отменен')]
+
+    customer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='customer_orders')
+    employee = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='employee_orders')
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='new')
+    sale_date = models.DateTimeField(null = True, blank=True)
+    delivery_date = models.DateField()
+    total_price = models.DecimalField(max_digits=12, decimal_places=2, default=0)
+    comment = models.TextField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    promo_code = models.ForeignKey(PromoCode, on_delete=models.SET_NULL, null=True, blank=True)
+
+    def __str__(self):
+        return f'Order #{self.id}'
+
+
+class OrderItem(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='items')
+    car = models.ForeignKey(Car, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+    price = models.DecimalField(max_digits=12, decimal_places=2)
+
+    def get_total_price(self):
+        return self.quantity * self.price
+
+    def __str__(self):
+        return f'{self.car.name} ({self.quantity})'

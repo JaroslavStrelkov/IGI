@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>
+
+        AutoSalon
+
+    </title>
+
+</head>
+
+<body>
+
+    <nav>
+
+        <a href="/">
+
+            Главная
+
+        </a>
+
+        |
+
+        <a href="/cars/">
+
+            Автомобили
+
+        </a>
+
+        |
+
+        <a href="/promo/">
+
+            Промокоды
+
+        </a>
+
+        |
+
+        <a href="/news/">
+
+            Новости
+
+        </a>
+
+        |
+
+        <a href="/about/">
+
+            О компании
+
+        </a>
+
+        |
+
+        <a href="/faq/">
+
+            ЧаВо
+
+        </a>
+
+        |
+
+        <a href="/contacts/">
+
+            Контакты
+
+        </a>
+
+        |
+
+        <a href="/vacancies/">
+
+            Вакансии
+
+        </a>
+        
+        |
+
+        <a href="/external-api/">
+
+            Курс BTN
+
+        </a>
+
+        |
+
+        <a href="/timezone/">
+
+            Время
+
+        </a>
+
+        |
+
+        <a href="/reviews/">
+            Отзывы
+        </a>
+
+
+        |
+
+        <a href="/privacy/">
+
+            Политика компании
+
+        </a>
+
+        {% if user.is_authenticated %}
+
+            |
+
+            <a href="/orders/">
+
+                Заказы
+
+            </a>
+
+            |
+
+            <a href="/accounts/profile/">
+
+                Профиль
+
+            </a>
+
+            |
+
+            <a href="/accounts/logout/">
+
+                Выйти
+
+            </a>
+
+        {% else %}
+
+            |
+
+            <a href="/accounts/login/">
+
+                Войти
+
+            </a>
+
+            |
+
+            <a href="/accounts/register/">
+
+                Регистрация
+
+            </a>
+
+        {% endif %}
+
+        {% if user.is_superuser %}
+
+            |
+
+            <a href="/analytics/">
+
+                Аналитика
+
+            </a>
+
+        {% endif %}
+
+    </nav>
+
+    <hr>
+
+    {% block content %}
+
+    {% endblock %}
+
+</body>
+
+</html>

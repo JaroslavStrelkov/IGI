@@ -1,0 +1,56 @@
+{% extends 'window/base.html' %}
+
+{% block content %}
+
+<h1>
+    Отзывы
+</h1>
+
+{% if user.is_authenticated %}
+
+    <a href="/reviews/create/">
+        Добавить отзыв
+    </a>
+
+{% endif %}
+
+<hr>
+
+{% for review in reviews %}
+
+    <h3>
+        {{ review.user.username }}
+    </h3>
+
+    <p>
+        Оценка:
+        {{ review.rating }}/5
+    </p>
+
+    <p>
+        {{ review.text }}
+    </p>
+
+    <p>
+        {{ review.created_at }}
+    </p>
+
+    {% if review.user == user or user.is_superuser %}
+
+        <a href="/reviews/edit/{{ review.id }}">
+            Изменить
+        </a>
+
+        |
+
+        <a href="/reviews/delete/{{ review.id }}">
+            Удалить
+        </a>
+
+    {% endif %}
+
+    <hr>
+
+{% endfor %}
+
+{% endblock %}

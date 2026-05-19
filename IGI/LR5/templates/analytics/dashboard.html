@@ -1,0 +1,206 @@
+{% extends 'window/base.html' %}
+
+{% block content %}
+
+<h1>
+    Аналитика автосалона
+</h1>
+
+<hr>
+
+<h2>
+    Общий доход
+</h2>
+
+<p>
+
+    {{ total_revenue }}
+
+</p>
+
+<hr>
+
+<h2>
+    Самый популярный автомобиль
+</h2>
+
+<p>
+
+    {{ popular_car.car__name }}
+
+</p>
+
+<hr>
+
+<h2>
+    Непопулярный автомобиль
+</h2>
+
+<p>
+
+    {{ unpopular_car.car__name }}
+
+</p>
+
+<hr>
+
+<h2>
+    Средний чек
+</h2>
+
+<p>
+
+    {{ average_sale }}
+
+</p>
+
+<hr>
+
+<h2>
+    Медианный чек
+</h2>
+
+<p>
+
+    {{ median_sale }}
+
+</p>
+
+<hr>
+
+<h2>
+    Список клиентов по городам
+</h2>
+
+<ul>
+
+    {% for city in clients_by_city %}
+
+        <li>
+
+            {{ city.customer__profile__city }}
+
+            —
+
+            {{ city.total }}
+
+        </li>
+
+    {% endfor %}
+
+</ul>
+
+<hr>
+
+<h2>
+    Прайс-лист по категориям
+</h2>
+
+<ul>
+
+    {% for item in price_list %}
+
+        <li>
+
+            {{ item.category__name }}
+
+            —
+
+            {{ item.total_price }}
+
+        </li>
+
+    {% endfor %}
+
+</ul>
+
+<hr>
+
+<h2>
+    Ежемесячные продажи по категориям
+</h2>
+
+<ul>
+
+    {% for item in monthly_by_category %}
+
+        <li>
+
+            {{ item.month|date:"m/Y" }}
+
+            —
+
+            {{ item.car__category__name }}
+
+            —
+
+            {{ item.total }}
+
+        </li>
+
+    {% endfor %}
+
+</ul>
+
+<hr>
+
+<h2>
+    Годовой отчет продаж
+</h2>
+
+<ul>
+
+    {% for item in yearly_sales %}
+
+        <li>
+
+            {{ item.year|date:"Y" }}
+
+            —
+
+            {{ item.total }}
+
+        </li>
+
+    {% endfor %}
+
+</ul>
+
+<hr>
+
+<h2>
+    График продаж
+</h2>
+
+<img
+    src="{{ chart_url }}"
+    width="800"
+>
+
+<hr>
+
+<h2>
+    Диаграмма продаж по категориям
+</h2>
+
+<img
+    src="{{ pie_chart }}"
+    width="500"
+>
+
+<hr>
+
+<h2>
+    Линейный тренд и прогноз продаж
+</h2>
+
+{% if trend_chart %}
+
+    <img
+        src="{{ trend_chart }}"
+        width="800"
+    >
+
+{% endif %}
+
+{% endblock %}

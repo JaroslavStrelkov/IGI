@@ -1,0 +1,141 @@
+{% extends 'window/base.html' %}
+{% block content %}
+<h1>Редактировать автомобиль</h1>
+
+<form method="POST" enctype="multipart/form-data">
+
+    {% csrf_token %}
+
+    <p>
+        Название:
+        <input type="text" name="name" value="{{ car.name }}">
+    </p>
+
+    <p>
+        Описание:
+        <textarea name="description"></textarea>
+    </p>
+
+    <p>
+        Цена:
+        <input type="number" name="price">
+    </p>
+
+    <p>
+        Год:
+        <input type="number" name="year">
+    </p>
+
+    <p>
+        Пробег:
+        <input type="number" name="mileage">
+    </p>
+
+    <p>
+        Коробка:
+        <select name="transmission">
+
+            <option value="manual">
+                Механика
+            </option>
+
+            <option value="automatic">
+                Автомат
+            </option>
+
+        </select>
+    </p>
+
+    <p>
+        Топливо:
+        <select name="fuel_type">
+
+            <option value="petrol">
+                Бензин
+            </option>
+
+            <option value="diesel">
+                Дизель
+            </option>
+
+            <option value="electric">
+                Электро
+            </option>
+
+            <option value="hybrid">
+                Гибрид
+            </option>
+
+        </select>
+    </p>
+
+    <p>
+        Категория:
+
+        <select name="category">
+
+            {% for category in categories %}
+
+                <option value="{{ category.id }}">
+                    {{ category.name }}
+                </option>
+
+            {% endfor %}
+
+        </select>
+    </p>
+
+    <p>
+        Производитель:
+
+        <select name="manufacturer">
+
+            {% for manufacturer in manufacturers %}
+
+                <option value="{{ manufacturer.id }}">
+                    {{ manufacturer.name }}
+                </option>
+
+            {% endfor %}
+
+        </select>
+    </p>
+
+    <p>
+        Особенности:
+    </p>
+
+    {% for feature in features %}
+
+        <label>
+
+            <input
+                type="checkbox"
+                name="features"
+                value="{{ feature.id }}"
+            >
+
+            {{ feature.name }}
+
+        </label>
+
+        <br>
+
+    {% endfor %}
+
+    <p>
+        Фото:
+        <input type="file" name="image">
+    </p>
+
+    <p>
+        В наличии:
+        <input type="checkbox" name="is_available">
+    </p>
+
+    <button type="submit">
+        Сохранить
+    </button>
+
+</form>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'window/base.html' %}
+
+{% block content %}
+
+
+<hr>
+
+<h2>
+    Курс биткоина к евро
+</h2>
+
+
+<p>
+    {{ btc_price }} EURO
+
+</p>
+
+<hr>
+{% if user.is_authenticated %}
+<h2>
+    Смешная собака улыбака для настроения
+</h2>
+
+<img
+    src="{{ dog_image }}"
+    width="500"
+>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,96 @@
+{% extends 'window/base.html' %}
+
+{% block content %}
+
+<h1>
+    Оформление заказа
+</h1>
+
+<form method="POST">
+
+    {% csrf_token %}
+
+    {% for car in cars %}
+
+        <div
+            style="
+                border:1px solid black;
+                padding:10px;
+                margin-bottom:10px;
+            "
+        >
+
+            <h3>
+
+                {{ car.name }}
+
+            </h3>
+
+            <p>
+
+                Цена:
+
+                {{ car.price }}
+
+            </p>
+
+            <p>
+
+                <input
+                    type="checkbox"
+                    name="cars"
+                    value="{{ car.id }}"
+                >
+
+                Добавить в заказ
+
+            </p>
+
+            <p>
+
+                Количество:
+
+                <input
+                    type="number"
+                    name="quantity_{{ car.id }}"
+                    value="1"
+                    min="1"
+                >
+
+            </p>
+
+        </div>
+
+    {% endfor %}
+
+    <p>
+
+        Дата доставки:
+
+        <input
+            type="date"
+            name="delivery_date"
+        >
+
+    </p>
+
+    <p>
+
+        Промокод:
+
+        <input
+            type="text"
+            name="promo_code"
+        >
+
+    </p>
+
+    <button type="submit">
+
+        Оформить заказ
+
+    </button>
+
+</form>
+
+{% endblock %}

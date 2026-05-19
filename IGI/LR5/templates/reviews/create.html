@@ -1,0 +1,45 @@
+{% extends 'window/base.html' %}
+
+{% block content %}
+
+<h1>
+    Добавить отзыв
+</h1>
+
+<form method="POST">
+
+    {% csrf_token %}
+
+    <p>
+
+        Оценка:
+
+        <select name="rating">
+
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+
+        </select>
+
+    </p>
+
+    <p>
+
+        Текст:
+
+    </p>
+
+    <textarea name="text"></textarea>
+
+    <br><br>
+
+    <button type="submit">
+        Отправить
+    </button>
+
+</form>
+
+{% endblock %}

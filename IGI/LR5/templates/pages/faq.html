@@ -1,0 +1,27 @@
+{% extends 'window/base.html' %}
+
+{% block content %}
+
+<h1>
+    Часто задаваемые вопросы
+</h1>
+
+{% for faq in faqs %}
+
+    <h3>
+        {{ faq.question }}
+    </h3>
+
+    <p>
+        {{ faq.answer }}
+    </p>
+
+    <p>
+        {{ faq.created_at }}
+    </p>
+
+    <hr>
+
+{% endfor %}
+
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends 'window/base.html' %}
+{% block content %}
+
+<h1>
+    Профиль
+</h1>
+
+<p>
+    Username:
+    {{ user.username }}
+</p>
+
+<p>
+    Email:
+    {{ user.email }}
+</p>
+
+<p>
+    Role:
+    {{ profile.role }}
+</p>
+
+<p>
+    City:
+    {{ profile.city }}
+</p>
+
+<p>
+    Phone:
+    {{ profile.phone_number }}
+</p>
+
+<p>
+    Birth date:
+    {{ profile.birth_date }}
+</p>
+
+{% if profile.avatar %}
+
+    <img
+        src="{{ profile.avatar.url }}"
+        width="200"
+    >
+
+{% endif %}
+
+<hr>
+
+<h2>
+    Мои заказы
+</h2>
+
+{% for order in orders %}
+
+    <p>
+
+        Заказ #{{ order.id }}
+
+        —
+
+        {{ order.total_price }}
+
+    </p>
+
+{% empty %}
+
+    <p>
+        Заказов нет
+    </p>
+
+{% endfor %}
+
+{% endblock %}

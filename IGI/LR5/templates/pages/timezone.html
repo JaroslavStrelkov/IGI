@@ -1,0 +1,45 @@
+{% extends 'window/base.html' %}
+
+{% block content %}
+
+<h1>
+    Timezone и календарь
+</h1>
+
+<hr>
+
+<h2>
+    UTC время
+</h2>
+
+<p>
+
+    {{ utc_time|date:"d/m/Y H:i:s" }}
+
+</p>
+
+<hr>
+
+<h2>
+    Локальное время пользователя
+</h2>
+
+<p>
+
+    {{ local_time|date:"d/m/Y H:i:s" }}
+
+</p>
+
+<hr>
+
+<h2>
+    Текстовый календарь
+</h2>
+
+<pre>
+
+{{ calendar }}
+
+</pre>
+
+{% endblock %}
