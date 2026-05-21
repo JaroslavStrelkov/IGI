@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import (AboutCompany, News, FAQ, EmployeeContact, Vacancy)
 from django.utils import timezone
+from datetime import timezone as dt_timezone
 import calendar
 import requests
 
@@ -34,20 +35,29 @@ def privacy_page(request):
     return render(request, 'pages/privacy.html')
 
 def external_api_page(request):
-    btc_data = requests.get('https://api.binance.com/api/v3/ticker/price?symbol=BTCEUR').json()
+    cat_fact = 'Факт недоступен'
     dog_image = None
+    try:
+        cat_data = requests.get('https://catfact.ninja/fact', timeout=5).json()
+        cat_fact = cat_data.get('fact', 'Факт недоступен')
+
+    except Exception:
+        pass
 
     if request.user.is_authenticated:
-        dog_data = requests.get('https://dog.ceo/api/breeds/image/random').json()
-        dog_image = dog_data['message']
+        try:
+            dog_data = requests.get('https://dog.ceo/api/breeds/image/random', timeout=5).json()
+            dog_image = dog_data.get('message')
+            
+        except Exception:
+            pass
 
-    context = {'btc_price': (btc_data['price']), 'dog_image': dog_image,}
-
+    context = {'cat_fact': cat_fact,'dog_image': dog_image,}
     return render(request, 'pages/external_api.html', context)
 
 def timezone_page(request):
-    utc_time = timezone.now()
-    local_time = timezone.localtime(utc_time)
+    utc_time = timezone.now().astimezone(dt_timezone.utc)
+    local_time = timezone.localtime()
     current_year = local_time.year
     current_month = local_time.month
     text_calendar = calendar.month(current_year,current_month)

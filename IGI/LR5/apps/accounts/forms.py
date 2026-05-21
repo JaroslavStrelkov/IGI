@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import Profile, validate_age
+from django.core.validators import RegexValidator
 
 
 class RegisterForm(UserCreationForm):
@@ -51,10 +52,11 @@ class RegisterForm(UserCreationForm):
             return phone
 
         phone = phone.strip()
-        if phone:
-            from django.core.validators import RegexValidator
-            validator = RegexValidator(regex=r'^\+375 \((25|29|33|44)\) \d{3}-\d{2}-\d{2}$', message='Номер телефона должен быть в формате: +375 (29) 123-45-67')
-            validator(phone)
+        validator = RegexValidator(regex=r'^\+375 \((25|29|33|44)\) \d{3}-\d{2}-\d{2}$', message='Номер телефона должен быть в формате: +375 (29) 123-45-67')
+        validator(phone)
+
+        if Profile.objects.filter(phone_number=phone).exists():
+            raise forms.ValidationError('Пользователь с таким номером уже существует')
 
         return phone
 

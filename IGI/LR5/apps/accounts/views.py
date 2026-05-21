@@ -48,7 +48,6 @@ def logout_view(request):
 
 
 @login_required
-@login_required
 def profile_view(request):
     profile = request.user.profile
     orders = request.user.customer_orders.all()

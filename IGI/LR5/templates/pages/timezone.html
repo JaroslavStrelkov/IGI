@@ -7,17 +7,17 @@
 </h1>
 
 <hr>
-
+{% load tz %}
 <h2>
     UTC время
 </h2>
-
+{% localtime off %}
 <p>
 
     {{ utc_time|date:"d/m/Y H:i:s" }}
 
 </p>
-
+{% endlocaltime %}
 <hr>
 
 <h2>

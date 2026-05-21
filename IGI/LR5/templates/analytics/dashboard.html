@@ -173,7 +173,7 @@
 </h2>
 
 <img
-    src="{{ chart_url }}"
+    src="{{ chart_url }}?v={{ total_revenue }}"
     width="800"
 >
 
@@ -184,7 +184,7 @@
 </h2>
 
 <img
-    src="{{ pie_chart }}"
+    src="{{ pie_chart }}?v={{ total_revenue }}"
     width="500"
 >
 
@@ -197,7 +197,7 @@
 {% if trend_chart %}
 
     <img
-        src="{{ trend_chart }}"
+        src="{{ trend_chart }}?v={{ total_revenue }}"
         width="800"
     >
 

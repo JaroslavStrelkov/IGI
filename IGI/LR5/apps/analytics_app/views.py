@@ -9,6 +9,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import os
 
+from core import settings
+
 @login_required
 def analytics_dashboard(request):
     if not request.user.is_superuser:
@@ -58,9 +60,17 @@ def analytics_dashboard(request):
     plt.xlabel('Месяц')
     plt.ylabel('Сумма')
 
-    chart_path = ('media/charts/monthly_sales.png')
+    chart_path = os.path.join(
+        settings.MEDIA_ROOT,'charts',
+        'monthly_sales.png'
+    )
+
+    if os.path.exists(chart_path):
+
+        os.remove(chart_path)
 
     plt.savefig(chart_path)
+
     plt.close()
 
     category_stats = (OrderItem.objects.values('car__category__name').annotate(total=Sum('quantity')))
